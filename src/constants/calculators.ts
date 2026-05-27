@@ -1,6 +1,8 @@
 export type CalculatorId =
   | 'percentage-value'
   | 'base-from-vat'
+  | 'vat-then-add-percentage'
+  | 'vat-then-subtract-percentage'
   | 'discount-with-vat'
   | 'discount-without-vat'
   | 'fuel-cost';
@@ -21,6 +23,16 @@ export const CALCULATORS: CalculatorMeta[] = [
     id: 'base-from-vat',
     label: 'Price before VAT',
     shortDescription: 'Work out the amount before VAT from a VAT-inclusive total.',
+  },
+  {
+    id: 'vat-then-add-percentage',
+    label: 'VAT + add %',
+    shortDescription: 'Base amount, add VAT, then add a percentage on the subtotal.',
+  },
+  {
+    id: 'vat-then-subtract-percentage',
+    label: 'VAT + subtract %',
+    shortDescription: 'Base amount, add VAT, then subtract a percentage from the subtotal.',
   },
   {
     id: 'discount-with-vat',

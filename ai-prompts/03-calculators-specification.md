@@ -47,7 +47,50 @@ vat_amount = total - base
 
 ---
 
-## 3. Discount with VAT (`discount-with-vat`)
+## 3. VAT then add percentage (`vat-then-add-percentage`)
+
+**File:** `vatThenAdditional.ts` / `VatThenAdditionalCalculator.tsx` (operation `add`)
+
+Matches invoice-style flow: base → VAT → extra % **on subtotal** → grand total.
+
+| Input | Output |
+|-------|--------|
+| Base amount | VAT amount, subtotal, additional amount, grand total |
+| Additional % (on subtotal) | |
+
+Uses **VAT % from settings**.
+
+**Formula:**
+
+```
+vat_amount = base × VAT / 100
+sub_total = base + vat_amount
+additional_amount = sub_total × additional_percentage / 100
+grand_total = sub_total + additional_amount
+```
+
+**Example (18% VAT, 10% add):** base 289,725 → VAT 52,150.50 → subtotal 341,875.50 → +10% 34,187.55 → **376,063.05**
+
+---
+
+## 4. VAT then subtract percentage (`vat-then-subtract-percentage`)
+
+**File:** `vatThenAdditional.ts` / `VatThenAdditionalCalculator.tsx` (operation `subtract`)
+
+Same as above, but the extra percentage is **subtracted** from the subtotal.
+
+**Formula:**
+
+```
+vat_amount = base × VAT / 100
+sub_total = base + vat_amount
+reduction_amount = sub_total × additional_percentage / 100
+grand_total = sub_total - reduction_amount
+```
+
+---
+
+## 5. Discount with VAT (`discount-with-vat`)
 
 **File:** `discountWithVat.ts` / `DiscountWithVatCalculator.tsx`
 
@@ -67,7 +110,7 @@ final_value = total_with_vat - discount
 
 ---
 
-## 4. Discount without VAT (`discount-without-vat`)
+## 6. Discount without VAT (`discount-without-vat`)
 
 **File:** `discountWithoutVat.ts` / `DiscountWithoutVatCalculator.tsx`
 
@@ -91,7 +134,7 @@ final_value = discounted_base + vat_amount
 
 ---
 
-## 5. Delivery / fuel cost (`fuel-cost`)
+## 7. Delivery / fuel cost (`fuel-cost`)
 
 **File:** `fuelCost.ts` / `FuelCostCalculator.tsx`
 

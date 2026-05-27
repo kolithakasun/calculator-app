@@ -40,9 +40,11 @@ npm run lint
 
 1. Percentage value  
 2. Price before VAT (from VAT-inclusive total)  
-3. Discount on total **with** VAT  
-4. Discount on total **without** VAT (then VAT recalculated)  
-5. Delivery / fuel cost  
+3. VAT + add % (base → VAT → extra % on subtotal)  
+4. VAT + subtract % (base → VAT → reduce subtotal by %)  
+5. Discount on total **with** VAT  
+6. Discount on total **without** VAT (then VAT recalculated)  
+7. Delivery / fuel cost  
 
 ## Deployment
 

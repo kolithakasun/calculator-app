@@ -4,6 +4,12 @@ Add a new entry at the **top** when you complete meaningful work.
 
 ---
 
+## 2026-05-27 — VAT then add/subtract percentage calculators
+
+- **What:** Two new tabs before discount calculators: “VAT + add %” and “VAT + subtract %”. Base → VAT (from settings) → additional % applied to subtotal → grand total.
+- **Files:** `vatThenAdditional.ts`, `VatThenAdditionalCalculator.tsx`, registry + `calculators.ts` order updated.
+- **Why:** User invoice workflow (e.g. base 289,725 + 18% VAT + 10% on subtotal).
+
 ## 2026-05-27 — Fuel price label: per liter → per km
 
 - **What:** Delivery calculator input renamed to “Fuel price per km”; description, formula text, and `fuelPricePerKm` parameter in `fuelCost.ts` updated.
