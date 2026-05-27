@@ -12,6 +12,7 @@ import {
   requiredNonNegativeMessage,
   requiredPercentageMessage,
 } from '../utils/validation';
+import { buildVatThenAdditionalSheet } from '../utils/excelSheets/buildSheets';
 import {
   calculateVatThenAdditional,
   type VatThenAdditionalOperation,
@@ -33,7 +34,7 @@ const COPY = {
     grandTotalHint: 'Subtotal + additional amount',
   },
   subtract: {
-    title: 'VAT then subtract percentage',
+    title: 'VAT − subtract percentage',
     description:
       'Start with a base amount, add VAT, then subtract a percentage from that subtotal—like a reduction on the VAT-inclusive figure.',
     additionalLabel: 'Additional percentage to subtract (%)',
@@ -84,15 +85,33 @@ export function VatThenAdditionalCalculator({
     setAdditionalPercentage('');
   };
 
-  const calculatorId =
-    operation === 'add'
-      ? 'vat-then-add-percentage'
-      : 'vat-then-subtract-percentage';
+  const excelSheet = useMemo(
+    () =>
+      buildVatThenAdditionalSheet({
+        operation,
+        baseRaw: baseAmount,
+        additionalRaw: additionalPercentage,
+        vatPercent: vatPercentage,
+        base: parseNonNegative(baseAmount),
+        additionalPercent: parseNonNegative(additionalPercentage),
+        vatAmount: results?.vatAmount ?? null,
+        subTotal: results?.subTotal ?? null,
+        adjustmentAmount: results?.additionalAmount ?? null,
+        grandTotal: results?.grandTotal ?? null,
+      }),
+    [
+      operation,
+      baseAmount,
+      additionalPercentage,
+      vatPercentage,
+      results,
+    ],
+  );
 
   return (
     <Card
-      calculatorId={calculatorId}
       title={copy.title}
+      excelSheet={excelSheet}
       description={copy.description}
       formula={`VAT = base × ${formatPercent(vatPercentage)}. Subtotal = base + VAT. ${operation === 'add' ? 'Additional' : 'Reduction'} = subtotal × your extra % ÷ 100. Grand total = subtotal ${operation === 'add' ? '+' : '−'} that amount.`}
       onReset={reset}

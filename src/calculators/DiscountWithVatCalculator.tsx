@@ -10,6 +10,7 @@ import {
   requiredNonNegativeMessage,
   requiredPercentageMessage,
 } from '../utils/validation';
+import { buildDiscountWithVatSheet } from '../utils/excelSheets/buildSheets';
 import { calculateDiscountWithVat } from './discountWithVat';
 
 export function DiscountWithVatCalculator() {
@@ -33,6 +34,19 @@ export function DiscountWithVatCalculator() {
     return calculateDiscountWithVat(total, discount);
   }, [totalWithVat, discountPercentage, totalError, discountError]);
 
+  const excelSheet = useMemo(
+    () =>
+      buildDiscountWithVatSheet({
+        totalRaw: totalWithVat,
+        discountRaw: discountPercentage,
+        total: parseNonNegative(totalWithVat),
+        discountPercent: parseNonNegative(discountPercentage),
+        discountAmount: results?.discountAmount ?? null,
+        finalValue: results?.finalValue ?? null,
+      }),
+    [totalWithVat, discountPercentage, results],
+  );
+
   const reset = () => {
     setTotalWithVat('');
     setDiscountPercentage('');
@@ -40,8 +54,8 @@ export function DiscountWithVatCalculator() {
 
   return (
     <Card
-      calculatorId="discount-with-vat"
       title="Discount on total with VAT"
+      excelSheet={excelSheet}
       description="Use this when the discount is applied to the full price that already includes VAT—common for promotions on the final bill."
       formula="Discount = total with VAT × discount % ÷ 100. Final price = total with VAT − discount."
       onReset={reset}

@@ -199,55 +199,105 @@
   font-size: 0.88rem;
 }
 
-.excel-guide__table-wrap {
+.excel-guide__grid-wrap {
   overflow-x: auto;
-}
-
-.excel-guide__table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.85rem;
-}
-
-.excel-guide__table th,
-.excel-guide__table td {
-  padding: 0.5rem 0.65rem;
-  text-align: left;
   border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+.excel-guide__grid {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+}
+
+.excel-guide__grid th,
+.excel-guide__grid td {
+  border: 1px solid var(--color-border);
+  padding: 0.45rem 0.55rem;
   vertical-align: top;
 }
 
-.excel-guide__table th {
+.excel-guide__grid thead th {
   background: var(--color-surface);
   font-weight: 600;
+  text-align: center;
 }
 
-.excel-guide__row--highlight {
-  background: var(--color-primary-soft);
+.excel-guide__corner {
+  width: 2rem;
+  background: #e8ecf1;
+}
+
+.excel-guide__row-num {
+  width: 2rem;
+  text-align: center;
+  background: #e8ecf1;
+  font-weight: 600;
+  color: var(--color-text-muted);
 }
 
 .excel-guide__cell {
+  min-width: 7rem;
+}
+
+.excel-guide__cell--label {
+  background: var(--color-surface);
+  font-weight: 500;
+}
+
+.excel-guide__cell--formula {
+  background: #ecfdf5;
+}
+
+.excel-guide__cell--result {
+  background: var(--color-primary-soft);
+  font-weight: 600;
+}
+
+.excel-guide__ref {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0.2rem;
+}
+
+.excel-guide__content,
+.excel-guide__formula {
+  display: block;
   font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
   font-size: 0.82rem;
-  font-weight: 600;
-  color: var(--color-primary);
+  word-break: break-all;
 }
 
 .excel-guide__formula {
-  font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
-  font-size: 0.82rem;
   color: #15803d;
+  font-weight: 600;
 }
 
-.excel-guide__value {
-  font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
-  font-size: 0.82rem;
-}
-
-.excel-guide__tip {
+.excel-guide__tip,
+.excel-guide__hint {
   margin: var(--space-md) 0 0;
   font-size: 0.85rem;
   color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+.excel-guide__hint code {
+  font-size: 0.8rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .excel-guide__corner,
+  .excel-guide__row-num {
+    background: #1e293b;
+  }
+
+  .excel-guide__cell--formula {
+    background: #14532d33;
+  }
 }
 
 .calculator-grid {

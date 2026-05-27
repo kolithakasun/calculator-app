@@ -41,10 +41,13 @@ npm run lint
 1. Percentage value  
 2. Price before VAT (from VAT-inclusive total)  
 3. VAT + add % (base → VAT → extra % on subtotal)  
-4. VAT + subtract % (base → VAT → reduce subtotal by %)  
-5. Discount on total **with** VAT  
-6. Discount on total **without** VAT (then VAT recalculated)  
-7. Delivery / fuel cost  
+4. VAT − subtract % (base → VAT → reduce subtotal by %)  
+5. Tax invoice (Qty × Rate → VAT → retention % off subtotal)  
+6. Discount on total **with** VAT  
+7. Discount on total **without** VAT (then VAT recalculated)  
+8. Delivery / fuel cost  
+
+Excel guides are **dynamic horizontal grids** (columns A/B/C); values in column B follow calculator inputs; see `utils/excelSheets/buildSheets.ts`.
 
 ## Deployment
 

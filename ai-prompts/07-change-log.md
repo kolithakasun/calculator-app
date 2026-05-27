@@ -4,6 +4,11 @@ Add a new entry at the **top** when you complete meaningful work.
 
 ---
 
+## 2026-05-27 — Dynamic horizontal Excel + tax invoice
+
+- **What:** Excel section is now a 3-column grid (A/B/C) like a spreadsheet; column B updates from your inputs; column C shows live results. Renamed tab to **VAT − subtract %**. New **Tax invoice** calculator (Qty × Rate, VAT, retention).
+- **Files:** `types/excelSheet.ts`, `utils/excelSheets/buildSheets.ts`, `TaxInvoiceCalculator.tsx`, removed static `excelExamples.ts`.
+
 ## 2026-05-27 — Excel examples on every calculator
 
 - **What:** “Excel example” table on each calculator card (cell refs, sample values, formulas). Data in `constants/excelExamples.ts`, UI in `ExcelGuide.tsx`.

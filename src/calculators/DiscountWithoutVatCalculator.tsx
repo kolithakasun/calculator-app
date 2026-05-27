@@ -12,6 +12,7 @@ import {
   requiredNonNegativeMessage,
   requiredPercentageMessage,
 } from '../utils/validation';
+import { buildDiscountWithoutVatSheet } from '../utils/excelSheets/buildSheets';
 import { calculateDiscountWithoutVat } from './discountWithoutVat';
 
 export function DiscountWithoutVatCalculator() {
@@ -36,6 +37,22 @@ export function DiscountWithoutVatCalculator() {
     return calculateDiscountWithoutVat(total, discount, vatPercentage);
   }, [totalWithoutVat, discountPercentage, totalError, discountError, vatPercentage]);
 
+  const excelSheet = useMemo(
+    () =>
+      buildDiscountWithoutVatSheet({
+        totalRaw: totalWithoutVat,
+        discountRaw: discountPercentage,
+        vatPercent: vatPercentage,
+        total: parseNonNegative(totalWithoutVat),
+        discountPercent: parseNonNegative(discountPercentage),
+        discountAmount: results?.discountAmount ?? null,
+        discountedBase: results?.discountedBase ?? null,
+        vatAmount: results?.vatAmount ?? null,
+        finalValue: results?.finalValue ?? null,
+      }),
+    [totalWithoutVat, discountPercentage, vatPercentage, results],
+  );
+
   const reset = () => {
     setTotalWithoutVat('');
     setDiscountPercentage('');
@@ -43,8 +60,8 @@ export function DiscountWithoutVatCalculator() {
 
   return (
     <Card
-      calculatorId="discount-without-vat"
       title="Discount before VAT"
+      excelSheet={excelSheet}
       description="Use this when the discount applies to the price before VAT. VAT is then calculated on the discounted amount."
       formula={`Discount = price without VAT × discount % ÷ 100. VAT (${formatPercent(vatPercentage)}) is added to the discounted base.`}
       onReset={reset}

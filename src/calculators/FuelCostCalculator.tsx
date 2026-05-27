@@ -9,6 +9,7 @@ import {
   parseNonNegative,
 } from '../utils/numbers';
 import { requiredNonNegativeMessage } from '../utils/validation';
+import { buildFuelCostSheet } from '../utils/excelSheets/buildSheets';
 import { calculateFuelCost } from './fuelCost';
 
 export function FuelCostCalculator() {
@@ -43,6 +44,20 @@ export function FuelCostCalculator() {
     freeDeliveryDistanceKm,
   ]);
 
+  const excelSheet = useMemo(
+    () =>
+      buildFuelCostSheet({
+        distanceRaw: totalDistance,
+        priceRaw: fuelPricePerKm,
+        freeDeliveryKm: freeDeliveryDistanceKm,
+        distance: parseNonNegative(totalDistance),
+        pricePerKm: parseNonNegative(fuelPricePerKm),
+        chargeableKm: results?.chargeableDistanceKm ?? null,
+        transportCost: results?.transportCost ?? null,
+      }),
+    [totalDistance, fuelPricePerKm, freeDeliveryDistanceKm, results],
+  );
+
   const reset = () => {
     setTotalDistance('');
     setFuelPricePerKm('');
@@ -50,8 +65,8 @@ export function FuelCostCalculator() {
 
   return (
     <Card
-      calculatorId="fuel-cost"
       title="Delivery / fuel cost"
+      excelSheet={excelSheet}
       description="Estimate transport cost for a delivery. The first part of the distance is free; only the remaining distance is charged."
       formula={`Chargeable distance = the part of the trip beyond your free ${freeDeliveryDistanceKm} km. Transport cost = chargeable distance × fuel price per km.`}
       onReset={reset}

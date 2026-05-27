@@ -75,6 +75,8 @@ grand_total = sub_total + additional_amount
 
 ## 4. VAT then subtract percentage (`vat-then-subtract-percentage`)
 
+Tab label: **VAT − subtract %**
+
 **File:** `vatThenAdditional.ts` / `VatThenAdditionalCalculator.tsx` (operation `subtract`)
 
 Same as above, but the extra percentage is **subtracted** from the subtotal.
@@ -90,7 +92,35 @@ grand_total = sub_total - reduction_amount
 
 ---
 
-## 5. Discount with VAT (`discount-with-vat`)
+## 5. Tax invoice (`tax-invoice`)
+
+**File:** `taxInvoice.ts` / `TaxInvoiceCalculator.tsx`
+
+Supply invoice flow (e.g. office cupboard): Qty × Rate, +VAT, −retention % on subtotal.
+
+| Input | Output |
+|-------|--------|
+| Quantity | Amount, VAT, subtotal, retention, grand total |
+| Rate (Rs.) | |
+| Retention % | |
+
+Uses **VAT % from settings**.
+
+**Formula:**
+
+```
+amount = qty × rate
+vat_amount = amount × VAT / 100
+sub_total = amount + vat_amount
+retention = sub_total × retention% / 100
+grand_total = sub_total - retention
+```
+
+**Excel column B (example):** B1=1, B2=211735, B3==B1*B2, B4=18, B5==B3*B4/100, B6==B3+B5, B7=2.5, B8==B6*B7/100, B9==B6-B8 → 243601.12
+
+---
+
+## 6. Discount with VAT (`discount-with-vat`)
 
 **File:** `discountWithVat.ts` / `DiscountWithVatCalculator.tsx`
 
@@ -110,7 +140,7 @@ final_value = total_with_vat - discount
 
 ---
 
-## 6. Discount without VAT (`discount-without-vat`)
+## 7. Discount without VAT (`discount-without-vat`)
 
 **File:** `discountWithoutVat.ts` / `DiscountWithoutVatCalculator.tsx`
 
@@ -134,7 +164,7 @@ final_value = discounted_base + vat_amount
 
 ---
 
-## 7. Delivery / fuel cost (`fuel-cost`)
+## 8. Delivery / fuel cost (`fuel-cost`)
 
 **File:** `fuelCost.ts` / `FuelCostCalculator.tsx`
 

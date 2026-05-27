@@ -21,8 +21,13 @@ calculator-app/
 │   │   ├── *Calculator.tsx  UI per calculator
 │   │   └── registry.tsx   Maps CalculatorId → component
 │   ├── constants/
-│   │   ├── defaults.ts    DEFAULT_VAT_PERCENTAGE, DEFAULT_FREE_DELIVERY_DISTANCE_KM
-│   │   └── calculators.ts Tab metadata + CalculatorId type
+│   │   ├── defaults.ts
+│   │   └── calculators.ts
+│   ├── types/
+│   │   └── excelSheet.ts
+│   ├── utils/
+│   │   ├── excelFormat.ts
+│   │   └── excelSheets/buildSheets.ts  Dynamic Excel grids per calculator
 │   ├── context/
 │   │   └── SettingsContext.tsx
 │   ├── styles/

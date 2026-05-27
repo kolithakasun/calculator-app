@@ -3,6 +3,7 @@ export type CalculatorId =
   | 'base-from-vat'
   | 'vat-then-add-percentage'
   | 'vat-then-subtract-percentage'
+  | 'tax-invoice'
   | 'discount-with-vat'
   | 'discount-without-vat'
   | 'fuel-cost';
@@ -31,8 +32,13 @@ export const CALCULATORS: CalculatorMeta[] = [
   },
   {
     id: 'vat-then-subtract-percentage',
-    label: 'VAT + subtract %',
+    label: 'VAT − subtract %',
     shortDescription: 'Base amount, add VAT, then subtract a percentage from the subtotal.',
+  },
+  {
+    id: 'tax-invoice',
+    label: 'Tax invoice',
+    shortDescription: 'Qty × Rate, add VAT, then subtract retention % (invoice style).',
   },
   {
     id: 'discount-with-vat',

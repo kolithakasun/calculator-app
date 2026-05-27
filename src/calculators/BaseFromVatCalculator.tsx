@@ -9,6 +9,7 @@ import {
   parseNonNegative,
 } from '../utils/numbers';
 import { requiredNonNegativeMessage } from '../utils/validation';
+import { buildBaseFromVatSheet } from '../utils/excelSheets/buildSheets';
 import {
   calculateBaseFromVatInclusive,
   calculateVatAmountFromTotal,
@@ -32,12 +33,24 @@ export function BaseFromVatCalculator() {
     return { base, vatAmount };
   }, [totalWithVat, totalError, vatPercentage]);
 
+  const excelSheet = useMemo(
+    () =>
+      buildBaseFromVatSheet({
+        totalRaw: totalWithVat,
+        vatPercent: vatPercentage,
+        total: parseNonNegative(totalWithVat),
+        base: results?.base ?? null,
+        vatAmount: results?.vatAmount ?? null,
+      }),
+    [totalWithVat, vatPercentage, results],
+  );
+
   const reset = () => setTotalWithVat('');
 
   return (
     <Card
-      calculatorId="base-from-vat"
       title="Price before VAT"
+      excelSheet={excelSheet}
       description="You have a total that already includes VAT. This works out the amount before VAT was added."
       formula={`Base amount = total including VAT ÷ (1 + ${vatPercentage}% ÷ 100). VAT is taken from your app settings.`}
       onReset={reset}

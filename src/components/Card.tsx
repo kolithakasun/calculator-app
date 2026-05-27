@@ -1,13 +1,12 @@
 import type { ReactNode } from 'react';
-import type { CalculatorId } from '../constants/calculators';
-import { EXCEL_EXAMPLES } from '../constants/excelExamples';
+import type { ExcelSheet } from '../types/excelSheet';
 import { ExcelGuide } from './ExcelGuide';
 
 type CardProps = {
   title: string;
   description: string;
   formula: string;
-  calculatorId: CalculatorId;
+  excelSheet: ExcelSheet;
   children: ReactNode;
   onReset?: () => void;
 };
@@ -16,11 +15,10 @@ export function Card({
   title,
   description,
   formula,
-  calculatorId,
+  excelSheet,
   children,
   onReset,
 }: CardProps) {
-  const excelGuide = EXCEL_EXAMPLES[calculatorId];
   return (
     <section className="card" aria-labelledby={`card-${title}`}>
       <header className="card__header">
@@ -39,7 +37,7 @@ export function Card({
       <p className="card__formula">
         <span className="card__formula-label">How it works:</span> {formula}
       </p>
-      <ExcelGuide guide={excelGuide} />
+      <ExcelGuide sheet={excelSheet} />
       <div className="card__body">{children}</div>
     </section>
   );

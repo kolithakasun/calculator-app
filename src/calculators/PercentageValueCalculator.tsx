@@ -10,6 +10,7 @@ import {
   requiredNonNegativeMessage,
   requiredPercentageMessage,
 } from '../utils/validation';
+import { buildPercentageValueSheet } from '../utils/excelSheets/buildSheets';
 import { calculatePercentageValue } from './percentageValue';
 
 export function PercentageValueCalculator() {
@@ -27,6 +28,18 @@ export function PercentageValueCalculator() {
     return calculatePercentageValue(base, percent);
   }, [baseValue, percentage, baseError, percentageError]);
 
+  const excelSheet = useMemo(
+    () =>
+      buildPercentageValueSheet({
+        baseRaw: baseValue,
+        percentRaw: percentage,
+        base: parseNonNegative(baseValue),
+        percent: parseNonNegative(percentage),
+        percentageValue,
+      }),
+    [baseValue, percentage, percentageValue],
+  );
+
   const reset = () => {
     setBaseValue('');
     setPercentage('');
@@ -34,8 +47,8 @@ export function PercentageValueCalculator() {
 
   return (
     <Card
-      calculatorId="percentage-value"
       title="Percentage value"
+      excelSheet={excelSheet}
       description="Find how much a given percentage is of any amount—for example, 15% of a product price."
       formula="Percentage value = base amount × percentage ÷ 100"
       onReset={reset}
