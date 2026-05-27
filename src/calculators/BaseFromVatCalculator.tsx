@@ -36,6 +36,7 @@ export function BaseFromVatCalculator() {
 
   return (
     <Card
+      calculatorId="base-from-vat"
       title="Price before VAT"
       description="You have a total that already includes VAT. This works out the amount before VAT was added."
       formula={`Base amount = total including VAT ÷ (1 + ${vatPercentage}% ÷ 100). VAT is taken from your app settings.`}

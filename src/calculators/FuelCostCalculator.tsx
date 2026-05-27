@@ -50,6 +50,7 @@ export function FuelCostCalculator() {
 
   return (
     <Card
+      calculatorId="fuel-cost"
       title="Delivery / fuel cost"
       description="Estimate transport cost for a delivery. The first part of the distance is free; only the remaining distance is charged."
       formula={`Chargeable distance = the part of the trip beyond your free ${freeDeliveryDistanceKm} km. Transport cost = chargeable distance × fuel price per km.`}

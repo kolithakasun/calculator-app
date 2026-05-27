@@ -40,6 +40,7 @@ export function DiscountWithVatCalculator() {
 
   return (
     <Card
+      calculatorId="discount-with-vat"
       title="Discount on total with VAT"
       description="Use this when the discount is applied to the full price that already includes VAT—common for promotions on the final bill."
       formula="Discount = total with VAT × discount % ÷ 100. Final price = total with VAT − discount."

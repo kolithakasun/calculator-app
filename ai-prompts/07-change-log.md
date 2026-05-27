@@ -4,6 +4,11 @@ Add a new entry at the **top** when you complete meaningful work.
 
 ---
 
+## 2026-05-27 — Excel examples on every calculator
+
+- **What:** “Excel example” table on each calculator card (cell refs, sample values, formulas). Data in `constants/excelExamples.ts`, UI in `ExcelGuide.tsx`.
+- **Why:** User wanted to see how to replicate each calculation in a spreadsheet.
+
 ## 2026-05-27 — VAT then add/subtract percentage calculators
 
 - **What:** Two new tabs before discount calculators: “VAT + add %” and “VAT + subtract %”. Base → VAT (from settings) → additional % applied to subtotal → grand total.

@@ -84,8 +84,14 @@ export function VatThenAdditionalCalculator({
     setAdditionalPercentage('');
   };
 
+  const calculatorId =
+    operation === 'add'
+      ? 'vat-then-add-percentage'
+      : 'vat-then-subtract-percentage';
+
   return (
     <Card
+      calculatorId={calculatorId}
       title={copy.title}
       description={copy.description}
       formula={`VAT = base × ${formatPercent(vatPercentage)}. Subtotal = base + VAT. ${operation === 'add' ? 'Additional' : 'Reduction'} = subtotal × your extra % ÷ 100. Grand total = subtotal ${operation === 'add' ? '+' : '−'} that amount.`}

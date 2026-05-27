@@ -43,6 +43,7 @@ export function DiscountWithoutVatCalculator() {
 
   return (
     <Card
+      calculatorId="discount-without-vat"
       title="Discount before VAT"
       description="Use this when the discount applies to the price before VAT. VAT is then calculated on the discounted amount."
       formula={`Discount = price without VAT × discount % ÷ 100. VAT (${formatPercent(vatPercentage)}) is added to the discounted base.`}

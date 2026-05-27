@@ -34,6 +34,7 @@ export function PercentageValueCalculator() {
 
   return (
     <Card
+      calculatorId="percentage-value"
       title="Percentage value"
       description="Find how much a given percentage is of any amount—for example, 15% of a product price."
       formula="Percentage value = base amount × percentage ÷ 100"
