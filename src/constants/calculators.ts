@@ -38,7 +38,7 @@ export const CALCULATORS: CalculatorMeta[] = [
   {
     id: 'tax-invoice',
     label: 'Tax invoice',
-    shortDescription: 'Qty × Rate, add VAT, then subtract retention % (invoice style).',
+    shortDescription: 'Subtotal given: add VAT, then subtract retention % for grand total.',
   },
   {
     id: 'discount-with-vat',

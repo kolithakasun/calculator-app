@@ -4,6 +4,11 @@ Add a new entry at the **top** when you complete meaningful work.
 
 ---
 
+## 2026-05-27 — Tax invoice: subtotal-only input
+
+- **What:** Removed Qty and Rate. User enters **subtotal (before VAT)** + retention %. Matches invoice footer: +VAT → total → −retention → grand total.
+- **Why:** User only needs calculation when subtotal is already known.
+
 ## 2026-05-27 — Dynamic horizontal Excel + tax invoice
 
 - **What:** Excel section is now a 3-column grid (A/B/C) like a spreadsheet; column B updates from your inputs; column C shows live results. Renamed tab to **VAT − subtract %**. New **Tax invoice** calculator (Qty × Rate, VAT, retention).

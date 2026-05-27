@@ -1,26 +1,25 @@
 export type TaxInvoiceResult = {
-  baseAmount: number;
+  subtotal: number;
   vatAmount: number;
-  subTotal: number;
+  totalAfterVat: number;
   retentionAmount: number;
   grandTotal: number;
 };
 
+/** Subtotal is the amount before VAT (e.g. line item total on invoice). */
 export function calculateTaxInvoice(
-  quantity: number,
-  rate: number,
+  subtotal: number,
   vatPercentage: number,
   retentionPercentage: number,
 ): TaxInvoiceResult {
-  const baseAmount = quantity * rate;
-  const vatAmount = (baseAmount * vatPercentage) / 100;
-  const subTotal = baseAmount + vatAmount;
-  const retentionAmount = (subTotal * retentionPercentage) / 100;
-  const grandTotal = subTotal - retentionAmount;
+  const vatAmount = (subtotal * vatPercentage) / 100;
+  const totalAfterVat = subtotal + vatAmount;
+  const retentionAmount = (totalAfterVat * retentionPercentage) / 100;
+  const grandTotal = totalAfterVat - retentionAmount;
   return {
-    baseAmount,
+    subtotal,
     vatAmount,
-    subTotal,
+    totalAfterVat,
     retentionAmount,
     grandTotal,
   };

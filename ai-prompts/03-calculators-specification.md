@@ -96,12 +96,11 @@ grand_total = sub_total - reduction_amount
 
 **File:** `taxInvoice.ts` / `TaxInvoiceCalculator.tsx`
 
-Supply invoice flow (e.g. office cupboard): Qty × Rate, +VAT, −retention % on subtotal.
+**Input is subtotal only** (amount before VAT, e.g. 211,735.00 on invoice). No Qty × Rate.
 
 | Input | Output |
 |-------|--------|
-| Quantity | Amount, VAT, subtotal, retention, grand total |
-| Rate (Rs.) | |
+| Subtotal (before VAT) | VAT amount, total after VAT, retention, grand total |
 | Retention % | |
 
 Uses **VAT % from settings**.
@@ -109,14 +108,13 @@ Uses **VAT % from settings**.
 **Formula:**
 
 ```
-amount = qty × rate
-vat_amount = amount × VAT / 100
-sub_total = amount + vat_amount
-retention = sub_total × retention% / 100
-grand_total = sub_total - retention
+vat_amount = subtotal × VAT / 100
+total_after_vat = subtotal + vat_amount
+retention = total_after_vat × retention% / 100
+grand_total = total_after_vat - retention
 ```
 
-**Excel column B (example):** B1=1, B2=211735, B3==B1*B2, B4=18, B5==B3*B4/100, B6==B3+B5, B7=2.5, B8==B6*B7/100, B9==B6-B8 → 243601.12
+**Excel column B (example):** B1=211735, B2=18, B3==B1*B2/100, B4==B1+B3, B5=2.5, B6==B4*B5/100, B7==B4-B6 → 243601.12
 
 ---
 

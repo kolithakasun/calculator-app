@@ -170,82 +170,70 @@ export function buildVatThenAdditionalSheet(params: {
   );
 }
 
-// —— Tax invoice ——
+// —— Tax invoice (subtotal given) ——
 export function buildTaxInvoiceSheet(params: {
-  qtyRaw: string;
-  rateRaw: string;
+  subtotalRaw: string;
   retentionRaw: string;
   vatPercent: number;
-  qty: number | null;
-  rate: number | null;
+  subtotal: number | null;
   retentionPercent: number | null;
-  baseAmount: number | null;
   vatAmount: number | null;
-  subTotal: number | null;
+  totalAfterVat: number | null;
   retentionAmount: number | null;
   grandTotal: number | null;
 }): ExcelSheet {
   const {
-    qtyRaw,
-    rateRaw,
+    subtotalRaw,
     retentionRaw,
     vatPercent,
-    qty,
-    rate,
+    subtotal,
     retentionPercent,
-    baseAmount,
     vatAmount,
-    subTotal,
+    totalAfterVat,
     retentionAmount,
     grandTotal,
   } = params;
 
   return sheet(
-    'Matches a tax invoice: Qty × Rate = amount, then +VAT, then subtract retention % on the subtotal. Copy column B into Excel.',
+    'Start with your invoice subtotal (before VAT). Copy column B into Excel row by row.',
     [
-      [label('A1', 'Qty'), input('B1', excelInputDisplay(qtyRaw, qty, 4)), result('C1', '')],
       [
-        label('A2', 'Rate (Rs.)'),
-        input('B2', excelInputDisplay(rateRaw, rate)),
+        label('A1', 'Subtotal (before VAT)'),
+        input('B1', excelInputDisplay(subtotalRaw, subtotal)),
+        result('C1', ''),
+      ],
+      [
+        label('A2', 'VAT %'),
+        input('B2', toExcelNumber(vatPercent, 2)),
         result('C2', ''),
       ],
       [
-        label('A3', 'Amount (Qty × Rate)'),
-        formula('B3', '=B1*B2'),
-        result('C3', excelPreview(baseAmount)),
+        label('A3', 'Add: VAT amount'),
+        formula('B3', '=B1*B2/100'),
+        result('C3', excelPreview(vatAmount)),
       ],
       [
-        label('A4', 'VAT %'),
-        input('B4', toExcelNumber(vatPercent, 2)),
-        result('C4', ''),
+        label('A4', 'Total (subtotal + VAT)'),
+        formula('B4', '=B1+B3'),
+        result('C4', excelPreview(totalAfterVat)),
       ],
       [
-        label('A5', 'VAT amount'),
-        formula('B5', '=B3*B4/100'),
-        result('C5', excelPreview(vatAmount)),
+        label('A5', 'Retention %'),
+        input('B5', excelInputDisplay(retentionRaw, retentionPercent, 4)),
+        result('C5', ''),
       ],
       [
-        label('A6', 'Subtotal (amount + VAT)'),
-        formula('B6', '=B3+B5'),
-        result('C6', excelPreview(subTotal)),
+        label('A6', 'Retention amount'),
+        formula('B6', '=B4*B5/100'),
+        result('C6', excelPreview(retentionAmount)),
       ],
       [
-        label('A7', 'Retention %'),
-        input('B7', excelInputDisplay(retentionRaw, retentionPercent, 4)),
-        result('C7', ''),
-      ],
-      [
-        label('A8', 'Retention amount'),
-        formula('B8', '=B6*B7/100'),
-        result('C8', excelPreview(retentionAmount)),
-      ],
-      [
-        label('A9', 'GRAND TOTAL'),
-        formula('B9', '=B6-B8'),
-        result('C9', excelPreview(grandTotal)),
+        label('A7', 'GRAND TOTAL'),
+        formula('B7', '=B4-B6'),
+        result('C7', excelPreview(grandTotal)),
       ],
     ],
-    'Example: Qty 1, Rate 211735, VAT 18%, Retention 2.5% → Grand total 243,601.12',
+    'Example: Subtotal 211735, VAT 18%, Retention 2.5% → Grand total 243,601.12',
   );
 }
 

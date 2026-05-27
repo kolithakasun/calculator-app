@@ -42,7 +42,7 @@ npm run lint
 2. Price before VAT (from VAT-inclusive total)  
 3. VAT + add % (base → VAT → extra % on subtotal)  
 4. VAT − subtract % (base → VAT → reduce subtotal by %)  
-5. Tax invoice (Qty × Rate → VAT → retention % off subtotal)  
+5. Tax invoice (subtotal before VAT → +VAT → −retention % → grand total)  
 6. Discount on total **with** VAT  
 7. Discount on total **without** VAT (then VAT recalculated)  
 8. Delivery / fuel cost  

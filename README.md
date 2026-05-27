@@ -10,7 +10,7 @@ A modern, responsive calculator web app built with React, TypeScript, and Vite. 
 - **Price before VAT** — extract the base amount from a VAT-inclusive total
 - **VAT + add %** — base, add VAT, then add a percentage on the subtotal
 - **VAT − subtract %** — base, add VAT, then subtract a percentage from the subtotal
-- **Tax invoice** — Qty × Rate, VAT, retention % (matches supply invoice layout)
+- **Tax invoice** — subtotal given, add VAT, subtract retention % (invoice grand total)
 - **Discount (with VAT)** — discount applied to the total including VAT
 - **Discount (before VAT)** — discount on net price, then VAT added
 - **Delivery / fuel cost** — transport cost after free delivery distance
