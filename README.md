@@ -2,6 +2,8 @@
 
 A modern, responsive calculator web app built with React, TypeScript, and Vite. Designed for non-technical users and deployable as a static site on Netlify.
 
+> **Continuing development with AI?** Read [`ai-prompts/README.md`](./ai-prompts/README.md) first (or paste [`ai-prompts/06-continuation-prompt.md`](./ai-prompts/06-continuation-prompt.md) into a new chat).
+
 ## Features
 
 - **Percentage value** — find a percentage of any amount
@@ -15,9 +17,20 @@ Global settings (defaults: **18% VAT**, **15 km** free delivery) apply across re
 ## Development
 
 ```bash
+cd calculator-app
 npm install
 npm run dev
 ```
+
+Open the URL Vite prints (usually http://localhost:5173/).
+
+### Blank page?
+
+1. Run `npm run dev` from the **calculator-app** folder (not the parent repo).
+2. In `package.json`, the dev script must be exactly `"vite"` — do not add shell comments like `# local dev` on the same line.
+3. If Vite warns about a `#` folder, delete it: `rm -rf '#'` then restart the dev server.
+4. Stop other Vite servers (wrong port or wrong project can show a blank page).
+5. Open the browser devtools console (F12) for error messages.
 
 ## Build
 
